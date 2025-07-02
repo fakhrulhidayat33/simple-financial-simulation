@@ -251,11 +251,12 @@
             
             workUnitSelect.innerHTML = ""; // 🔄 reset totalWorkUnit sepenuhnya
 
-            console.log("baka");
+            console.log("rateType: ", rateType);
 
             // Per jam → tampilkan semua
             if (rateType === "per jam") {
                 totalWorkTimeContainer.classList.remove("hidden");
+                durationPerDayContainer.classList.add("hidden");
 
                 // Tambahkan 3 opsi: jam, hari, bulan
                 ["Jam", "Hari", "Bulan"].forEach(unit => {
@@ -290,7 +291,12 @@
             const rateType = tRate.value;
             const unit = workUnitSelect.value;
 
+            // ini dia masalhnya
+
             const showCheckbox = rateType === "per jam" && unit === "Bulan";
+
+            console.log("rateType: ", rateType);
+            console.log("unit: ", unit);
 
             if (rateType === "per jam") {
                 if (unit !== "Jam") {
@@ -379,7 +385,7 @@
     <script>
         //trigger
         [occupations, Level, tRate, currencySelect].forEach(al =>
-        al.addEventListener("input", () => {resetWorkInputs(); updateRateSummary(); changeTheUnit();}));
+        al.addEventListener("input", () => {resetWorkInputs(); updateRateSummary(); changeTheUnit(); updateDetails();}));
         
         rateInput.addEventListener("input", updateRateSummary);
 
