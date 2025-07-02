@@ -120,6 +120,7 @@
             'idr': 16000,
             "eur": 0.9
         };
+        console.log("test 1");
 
     </script>
 
@@ -158,7 +159,7 @@
             tRate.appendChild(option);
         });
 
-        console.log("test 1");
+        console.log("test 2");
     </script>
 
     <script>
@@ -276,6 +277,7 @@
             incomeResult.textContent = ``;
             includeHoliday.checked = false;
         };
+        console.log("test 3");
 
         function calculateIncome() {
             // Get rate safely (support formatted text if needed)
@@ -331,6 +333,7 @@
             incomeResult.textContent = `Perkiraan Penghasilan: ${formattedIncome}`;
             incomeResult.className = "text-center font-bold text-lg text-blue-700 mt-2";
         }
+        console.log("test 4");
     </script>
 
     <script>
@@ -347,6 +350,7 @@
 
         [occupations, Level, tRate, currencySelect, rateInput, totalWorkTime, workUnitSelect, durationPerDay].forEach(el =>
             el.addEventListener("input", () => {incomeResult.textContent = "";}));
+        console.log("test 5");
     </script>
 </body>
 </html>
