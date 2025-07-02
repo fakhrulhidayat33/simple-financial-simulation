@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta lang="id">
     <title>Simulasi Finansial</title>
+    <link rel="icon" type="image/webp" href="pic/logo.webp"/>
+    <meta property="og:image" content="pic/logo.webp" />
+    <link rel="apple-touch-icon" href="pic/logo.webp">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
@@ -13,7 +16,7 @@
         <div>
             <label for="platformSelect" class="block text-sm font-medium text-gray-700 mt-4">Platform</label>
             <select id="platformSelect" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
-                <!-- opti   ons will be inserted dynamically -->
+                <!-- opsi akan diisi lewat JavaScript-->
             </select>
         </div>        
         
@@ -133,6 +136,7 @@
                 rateRange = data;
                 rateRangeReady = true;
                 updateRateSummary();
+                changeTheUnit();
 
             })
             .catch(err => console.error("Error loading rateRange:", err));
@@ -241,8 +245,13 @@
             }
 
             rateSummary.textContent = message;
+        }
+        function changeTheUnit(){
+            const rateType = tRate.value;
             
             workUnitSelect.innerHTML = ""; // 🔄 reset totalWorkUnit sepenuhnya
+
+            console.log("baka");
 
             // Per jam → tampilkan semua
             if (rateType === "per jam") {
@@ -370,10 +379,9 @@
     <script>
         //trigger
         [occupations, Level, tRate, currencySelect].forEach(al =>
-        al.addEventListener("input", resetWorkInputs));
+        al.addEventListener("input", () => {resetWorkInputs(); updateRateSummary(); changeTheUnit();}));
         
-        [occupations, Level, tRate, currencySelect, rateInput].forEach(el =>
-        el.addEventListener("input", updateRateSummary));
+        rateInput.addEventListener("input", updateRateSummary);
 
         workUnitSelect.addEventListener("input", updateDetails);
 
@@ -381,6 +389,12 @@
 
         [platformSelect, occupations, Level, tRate, currencySelect, rateInput, totalWorkTime, workUnitSelect, durationPerDay].forEach(el =>
             el.addEventListener("input", () => {incomeResult.textContent = "";}));
+
+        durationPerDay.addEventListener("input", () => {
+            let val = parseInt(durationPerDay.value);
+            if (val < 1) durationPerDay.value = 1;
+            if (val > 23) durationPerDay.value = 23;
+        });
         
     </script>
 </body>
