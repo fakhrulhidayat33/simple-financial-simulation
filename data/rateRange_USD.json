@@ -1,0 +1,350 @@
+{
+  "Manajemen Media Sosial": {
+    "Pemula/Tingkat Dasar": {
+      "per jam": [
+        10,
+        15
+      ],
+      "per bulan": [
+        800,
+        1200
+      ],
+      "per project": [
+        300,
+        600
+      ]
+    },
+    "Menengah/Tingkat Madya": {
+      "per jam": [
+        15,
+        25
+      ],
+      "per bulan": [
+        1200,
+        1800
+      ],
+      "per project": [
+        600,
+        1200
+      ]
+    },
+    "Mahir/Tingkat Lanjut": {
+      "per jam": [
+        25,
+        35
+      ],
+      "per bulan": [
+        1800,
+        2500
+      ],
+      "per project": [
+        1200,
+        2000
+      ]
+    },
+    "Ahli/Spesialis": {
+      "per jam": [
+        35,
+        50
+      ],
+      "per bulan": [
+        2500,
+        4000
+      ],
+      "per project": [
+        2000,
+        3500
+      ]
+    }
+  },
+  "Email Marketing": {
+    "Pemula/Tingkat Dasar": {
+      "per jam": [
+        12,
+        18
+      ],
+      "per bulan": [
+        900,
+        1300
+      ],
+      "per project": [
+        350,
+        700
+      ]
+    },
+    "Menengah/Tingkat Madya": {
+      "per jam": [
+        18,
+        28
+      ],
+      "per bulan": [
+        1300,
+        1900
+      ],
+      "per project": [
+        700,
+        1300
+      ]
+    },
+    "Mahir/Tingkat Lanjut": {
+      "per jam": [
+        28,
+        40
+      ],
+      "per bulan": [
+        1900,
+        2700
+      ],
+      "per project": [
+        1300,
+        2200
+      ]
+    },
+    "Ahli/Spesialis": {
+      "per jam": [
+        40,
+        60
+      ],
+      "per bulan": [
+        2700,
+        4500
+      ],
+      "per project": [
+        2200,
+        4000
+      ]
+    }
+  },
+  "Tugas Administrasi": {
+    "Pemula/Tingkat Dasar": {
+      "per jam": [
+        8,
+        12
+      ],
+      "per bulan": [
+        600,
+        900
+      ],
+      "per project": [
+        200,
+        500
+      ]
+    },
+    "Menengah/Tingkat Madya": {
+      "per jam": [
+        12,
+        18
+      ],
+      "per bulan": [
+        900,
+        1300
+      ],
+      "per project": [
+        500,
+        900
+      ]
+    },
+    "Mahir/Tingkat Lanjut": {
+      "per jam": [
+        18,
+        25
+      ],
+      "per bulan": [
+        1300,
+        1800
+      ],
+      "per project": [
+        900,
+        1400
+      ]
+    },
+    "Ahli/Spesialis": {
+      "per jam": [
+        25,
+        35
+      ],
+      "per bulan": [
+        1800,
+        2600
+      ],
+      "per project": [
+        1400,
+        2200
+      ]
+    }
+  },
+  "Lead Generation": {
+    "Pemula/Tingkat Dasar": {
+      "per jam": [
+        10,
+        15
+      ],
+      "per bulan": [
+        800,
+        1200
+      ],
+      "per project": [
+        300,
+        600
+      ]
+    },
+    "Menengah/Tingkat Madya": {
+      "per jam": [
+        15,
+        22
+      ],
+      "per bulan": [
+        1200,
+        1700
+      ],
+      "per project": [
+        600,
+        1100
+      ]
+    },
+    "Mahir/Tingkat Lanjut": {
+      "per jam": [
+        22,
+        30
+      ],
+      "per bulan": [
+        1700,
+        2300
+      ],
+      "per project": [
+        1100,
+        1800
+      ]
+    },
+    "Ahli/Spesialis": {
+      "per jam": [
+        30,
+        45
+      ],
+      "per bulan": [
+        2300,
+        3500
+      ],
+      "per project": [
+        1800,
+        3200
+      ]
+    }
+  },
+  "Pembukuan": {
+    "Pemula/Tingkat Dasar": {
+      "per jam": [
+        10,
+        15
+      ],
+      "per bulan": [
+        800,
+        1200
+      ],
+      "per project": [
+        400,
+        700
+      ]
+    },
+    "Menengah/Tingkat Madya": {
+      "per jam": [
+        15,
+        22
+      ],
+      "per bulan": [
+        1200,
+        1700
+      ],
+      "per project": [
+        700,
+        1200
+      ]
+    },
+    "Mahir/Tingkat Lanjut": {
+      "per jam": [
+        22,
+        30
+      ],
+      "per bulan": [
+        1700,
+        2300
+      ],
+      "per project": [
+        1200,
+        2000
+      ]
+    },
+    "Ahli/Spesialis": {
+      "per jam": [
+        30,
+        45
+      ],
+      "per bulan": [
+        2300,
+        3500
+      ],
+      "per project": [
+        2000,
+        3500
+      ]
+    }
+  },
+  "Manajemen Project": {
+    "Pemula/Tingkat Dasar": {
+      "per jam": [
+        12,
+        18
+      ],
+      "per bulan": [
+        1000,
+        1500
+      ],
+      "per project": [
+        500,
+        900
+      ]
+    },
+    "Menengah/Tingkat Madya": {
+      "per jam": [
+        18,
+        28
+      ],
+      "per bulan": [
+        1500,
+        2200
+      ],
+      "per project": [
+        900,
+        1600
+      ]
+    },
+    "Mahir/Tingkat Lanjut": {
+      "per jam": [
+        28,
+        40
+      ],
+      "per bulan": [
+        2200,
+        3200
+      ],
+      "per project": [
+        1600,
+        2600
+      ]
+    },
+    "Ahli/Spesialis": {
+      "per jam": [
+        40,
+        60
+      ],
+      "per bulan": [
+        3200,
+        5000
+      ],
+      "per project": [
+        2600,
+        4500
+      ]
+    }
+  }
+}

@@ -65,9 +65,9 @@
                 <input id="includeHolidays" type="checkbox" class="text-blue-600 focus:ring-blue-500">
                 Termasuk hari libur
             </label>
-            </div>
+        </div>
 
-            <div id="durationPerDayContainer" class="hidden">
+        <div id="durationPerDayContainer" class="hidden">
             <label class="block text-sm font-medium text-gray-700 mb-1">Durasi Kerja per Hari</label>
             <div class="flex gap-3">
                 <input id="durationPerDay" type="number" placeholder="0" class="flex-1 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
@@ -79,7 +79,7 @@
             Hitung Penghasilan
         </button>
 
-        <p id="incomeResult" class="hidden text-center font-bold text-lg text-blue-700 mt-2"></p>
+        <p id="incomeResult" class="text-center font-bold text-lg text-blue-700 mt-2"></p>
     </div>
 
 
@@ -107,28 +107,20 @@
         // variable yang disembunyikan
 
         // menggunakan satuan dolar
-        const rateRange = {
-            "Pemula/Tingkat Dasar": {
-                "per jam": [3, 7],
-                "per bulan": [200, 500],
-                "per project": [20, 100]
-            },
-            "Menengah/Tingkat Madya": {
-                "per jam": [7, 15],
-                "per bulan": [500, 1000],
-                "per project": [100, 300]
-            },
-            "Mahir/Tingkat Lanjut": {
-                "per jam": [15, 30],
-                "per bulan": [1000, 2500],
-                "per project": [300, 800]
-            },
-            "Ahli/Spesialis": {
-                "per jam": [30, 100],
-                "per bulan": [2500, 5000],
-                "per project": [500, 5000]
-            }
-        };
+        let rateRange = {};
+
+        fetch('./data/rateRange_USD.json')
+            .then(res => res.json())
+            .then(data => {
+                rateRange = data;
+
+                // Now you can safely use rateRange in your functions
+                console.log("rateRange loaded:", rateRange);
+
+                // Optional: Call functions that depend on rateRange
+                updateRateSummary(); // or calculateIncome(), etc.
+            })
+            .catch(err => console.error("Error loading rateRange:", err));
 
         const exchangeRates = {
             "usd": 1,
@@ -147,33 +139,30 @@
         const rateInput = document.getElementById("rateAmount");
         const rateSummary = document.getElementById("rateSummary");
         const totalWorkTimeContainer = document.getElementById("totalWorkTimeContainer");
+        const totalWorkTime = document.getElementById("totalWorkTime");
         const workUnitSelect = document.getElementById("totalWorkUnit");
         const durationPerDayContainer = document.getElementById("durationPerDayContainer");
+        const durationPerDay = document.getElementById("durationPerDay")
         const includeHoliday = document.getElementById("includeHolidays");
         const btnCalculate = document.getElementById("calculate");
         const incomeResult = document.getElementById("incomeResult");
-
-        console.log("rateInput: ", rateInput.value);
-        console.log("totalwork: ", totalWorkTimeContainer.value);
-        console.log("duration: ", durationPerDayContainer.value);
-        console.log("includeHoliday: ", includeHoliday.value);
         
         occupationType.forEach(type => {
-        const option = document.createElement("option");
-        option.textContent = type;
-        occupations.appendChild(option);
+            const option = document.createElement("option");
+            option.textContent = type;
+            occupations.appendChild(option);
         });
 
         levelExperience.forEach(type => {
-        const option = document.createElement("option");
-        option.textContent = type;
-        Level.appendChild(option);
+            const option = document.createElement("option");
+            option.textContent = type;
+            Level.appendChild(option);
         });
 
         typeRate.forEach(type => {
-        const option = document.createElement("option");
-        option.textContent = type;
-        tRate.appendChild(option);
+            const option = document.createElement("option");
+            option.textContent = type;
+            tRate.appendChild(option);
         });
     </script>
 
@@ -202,11 +191,7 @@
             const convertedMin = Math.round(min * exchangeRate);
             const convertedMax = Math.round(max * exchangeRate);
 
-
-            console.log("convertedMin: ", convertedMin);
-            console.log("convertedMax: ", convertedMin);
             let message = `rentang tarif = ${currency}${convertedMin} - ${currency}${convertedMax}`;
-            console.log("message: ", message);
 
             let suffix = rateType === "per jam" ? 
                         "/ jam" : rateType === "per bulan" ?
@@ -263,7 +248,7 @@
         };
         updateRateSummary();
         
-        // fungsi updateDetails clear (?)
+        // fungsi updateDetails clear (v)
         function updateDetails() {
             const rateType = tRate.value;
             const unit = workUnitSelect.value;
@@ -287,21 +272,20 @@
 
         function resetWorkInputs() {
             rateInput.value = "";
-            totalWorkTimeContainer.value = "";
-            durationPerDayContainer.value = "";
+            totalWorkTime.value = "";
+            durationPerDay.value = "";
+            incomeResult.textContent = ``;
             includeHoliday.checked = false;
         };
 
-        function test() {console.log("value rateInput: ", rateInput.value);}
-
         function calculateIncome() {
+            // Get rate safely (support formatted text if needed)
             const rate = parseFloat(rateInput.value);
             const rateType = tRate.value;
-            const workUnit = workUnitSelect.value;
-            const totalTime = parseFloat(document.getElementById("totalWorkTime").value) || 0;
-            const durationPerDay = parseFloat(document.getElementById("durationPerDay").value) || 0;
-            const includeHolidays = document.getElementById("includeHolidays")?.checked || false;
             const currency = currencySelect.options[currencySelect.selectedIndex].text;
+            const workUnit = workUnitSelect.value;
+            const totalTime = parseFloat(totalWorkTime.value) || 0;
+            const duration = parseFloat(durationPerDay.value) || 0;
 
             let income = 0;
 
@@ -311,32 +295,41 @@
                 return;
             }
 
+            // Per project = flat rate
             if (rateType === "per project") {
-                income = rate; // proyek → langsung nilai tetap
+                income = rate;
             }
 
+            // Per month = rate * number of months
             else if (rateType === "per bulan") {
-                income = rate * totalTime; // misal: Rp 3.000.000 x 2 bulan
+                income = rate * totalTime;
             }
 
+            // Per hour = rate * total hours
             else if (rateType === "per jam") {
-                let totalJam = 0;
+                let totalHours = 0;
 
                 if (workUnit === "Jam") {
-                totalJam = totalTime;
-                } else if (workUnit === "Hari") {
-                const hariKerja = includeHolidays ? totalTime : totalTime * (5 / 7); // kira-kira Senin–Jumat
-                totalJam = hariKerja * durationPerDay;
-                } else if (workUnit === "Bulan") {
-                const hari = includeHolidays ? 30 : 22; // asumsi rata-rata
-                totalJam = totalTime * hari * durationPerDay;
+                    totalHours = totalTime;
+                }
+                else if (workUnit === "Hari") {
+                    const workingDays = totalTime;
+                    totalHours = workingDays * duration;
+                }
+                else if (workUnit === "Bulan") {
+                    console.log("includeHoliday: ", includeHoliday.checked);
+                    const daysPerMonth = includeHoliday.checked ? 30 : 22;
+                    totalHours = totalTime * daysPerMonth * duration;
                 }
 
-                income = rate * totalJam;
+                income = rate * totalHours;
             }
 
-            incomeResult.textContent = `Perkiraan Penghasilan: ${currency}${income.toFixed(0).toLocaleString("id-ID")}`;
-            incomeResult.classList.remove("hidden");
+            // Format final income
+            const formatted = income.toLocaleString("id-ID", { minimumFractionDigits: 0 });
+            const formattedIncome = currency + formatted;
+
+            incomeResult.textContent = `Perkiraan Penghasilan: ${formattedIncome}`;
             incomeResult.className = "text-center font-bold text-lg text-blue-700 mt-2";
         }
     </script>
@@ -349,11 +342,12 @@
         [occupations, Level, tRate, currencySelect, rateInput].forEach(el =>
         el.addEventListener("input", updateRateSummary));
 
-        rateInput.addEventListener("input", test);
-
         workUnitSelect.addEventListener("input", updateDetails);
 
         btnCalculate.addEventListener("click", calculateIncome);
+
+        [occupations, Level, tRate, currencySelect, rateInput, totalWorkTime, workUnitSelect, durationPerDay].forEach(el =>
+            el.addEventListener("input", () => {incomeResult.textContent = "";}));
     </script>
 </body>
 </html>
