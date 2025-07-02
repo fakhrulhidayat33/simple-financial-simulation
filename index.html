@@ -106,7 +106,6 @@
 
         // variable yang disembunyikan
 
-        // menggunakan satuan dolar
         let rateRange = {};
 
         fetch('./data/rateRange_USD.json')
@@ -177,7 +176,8 @@
             const selectedCurrency = currencySelect.value;
             const rate = parseFloat(rateInput.value);
             
-            const range = rateRange[level]?.[rateType]; // masih belum ditambahkan dengan tipe pekerjaan
+            const range = rateRange[occupation]?.[level]?.[rateType];
+
 
             if (!range) {
                 rateSummary.textContent = "Data tidak lengkap.";
