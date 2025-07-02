@@ -172,6 +172,9 @@
             const rate = parseFloat(rateInput.value);
             
             const range = rateRange[occupation]?.[level]?.[rateType];
+            console.log("occupation: ", occupation);
+            console.log("level: ", level);
+            console.log("rateType: ", rateType);
 
 
             if (!range) {
