@@ -105,15 +105,22 @@
         "per project"];
 
         // variable yang disembunyikan
-
+        console.log("asem 1");
         let rateRange = {};
+        let rateRangeReady = false;
+        console.log("asem 2");
 
         fetch('./data/rateRange_USD.json')
             .then(res => res.json())
             .then(data => {
+                console.log("asem 3");
                 rateRange = data;
+                rateRangeReady = true;
+                updateRateSummary();
+
             })
             .catch(err => console.error("Error loading rateRange:", err));
+        console.log("asem 4");
 
         const exchangeRates = {
             "usd": 1,
@@ -158,7 +165,7 @@
             tRate.appendChild(option);
         });
 
-        console.log("test 1");
+        console.log("asem 5");
     </script>
 
     <script>
@@ -171,8 +178,17 @@
             const currency = currencySelect.options[currencySelect.selectedIndex].text;
             const selectedCurrency = currencySelect.value;
             const rate = parseFloat(rateInput.value);
+
+            console.log("asem 6");
             
-            const range = rateRange[occupation]?.[level]?.[rateType];
+            console.log("occupation (raw):", occupation);
+            console.log("occupation (trimmed):", occupation.trim());
+            console.log("Available occupations in rateRange:", Object.keys(rateRange));
+
+            //const cleanOccupation = occupation.trim();
+            //const range = rateRange[cleanOccupation]?.[level]?.[rateType];
+            const range = rateRange[occupation][level][rateType];
+            console.log(range);
             console.log("occupation: ", occupation);
             console.log("level: ", level);
             console.log("rateType: ", rateType);
@@ -245,7 +261,6 @@
             }
             // akhir
         };
-        updateRateSummary();
         
         // fungsi updateDetails clear (v)
         function updateDetails() {
@@ -331,6 +346,10 @@
             incomeResult.textContent = `Perkiraan Penghasilan: ${formattedIncome}`;
             incomeResult.className = "text-center font-bold text-lg text-blue-700 mt-2";
         }
+
+        function main(){
+            
+        }
     </script>
 
     <script>
@@ -347,6 +366,7 @@
 
         [occupations, Level, tRate, currencySelect, rateInput, totalWorkTime, workUnitSelect, durationPerDay].forEach(el =>
             el.addEventListener("input", () => {incomeResult.textContent = "";}));
+        console.log("asem 7");
     </script>
 </body>
 </html>
