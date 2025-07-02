@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta lang="id">
+    <title>Simulasi Finansial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+    <div class="bg-white p-6 rounded-lg shadow-md w-full max-w-md space-y-4">
+        <h1 class="text-xl font-bold text-center text-gray-800">Simulasi Finansial</h1>
+
+        <div>
+            <label for="occupationType" class="block text-sm font-medium text-gray-700 mb-1">Tipe Pekerjaan</label>
+            <select id="occupationType" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <!-- opsi akan diisi lewat JavaScript-->
+            </select>
+        </div>
+
+        <div>
+            <label for="levelExperience" class="block text-sm font-medium text-gray-700 mb-1">Pengalaman</label>
+            <select id="levelExperience" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <!-- opsi akan diisi lewat JavaScript-->
+            </select>
+        </div>
+
+        <div>
+            <label for="typeRate" class="block text-sm font-medium text-gray-700 mb-1">Tipe Tarif</label>
+            <select id="typeRate" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <!-- opsi akan diisi lewat JavaScript-->
+            </select>
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Tarif / Rate</label>
+            <div class="flex gap-3">
+                <!-- Mata Uang -->
+                <select id="currency" class="border border-gray-300 rounded-md px-3 py-2 w-24 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <option value="usd">$</option>
+                    <option value="eur">€</option>
+                    <option value="idr">Rp</option>
+                </select>
+
+                <!-- Jumlah -->
+                <input id="rateAmount" type="number" placeholder="0" class="flex-1 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+            </div>
+        </div>
+
+        <!-- OUTPUT INFO -->
+        <p id="rateSummary" class="mt-2 text-sm text-gray-600"></p>
+
+        <div id="totalWorkTimeContainer" class="hidden">
+            <label class="block text-sm font-medium text-gray-700 mb-1">Waktu Kerja Total</label>
+            <div class="flex gap-3">
+                <input id="totalWorkTime" type="number" placeholder="0" class="flex-1 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <select id="totalWorkUnit" class="w-28 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <!-- opsi akan diisi lewat JavaScript-->
+                </select>
+            </div>
+        </div>
+
+        <!-- Checkbox: Hanya muncul jika rateType = per jam dan unit = bulan -->
+        <div id="includeHolidaysContainer" class="hidden mt-2">
+            <label class="inline-flex items-center gap-2 text-sm text-gray-700">
+                <input id="includeHolidays" type="checkbox" class="text-blue-600 focus:ring-blue-500">
+                Termasuk hari libur
+            </label>
+            </div>
+
+            <div id="durationPerDayContainer" class="hidden">
+            <label class="block text-sm font-medium text-gray-700 mb-1">Durasi Kerja per Hari</label>
+            <div class="flex gap-3">
+                <input id="durationPerDay" type="number" placeholder="0" class="flex-1 border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <span class="self-center text-sm text-gray-600">jam</span>
+            </div>
+        </div>
+
+        <button id="calculate" class="w-full bg-blue-600 text-white font-semibold py-2 rounded-md hover:bg-blue-700 transition">
+            Hitung Penghasilan
+        </button>
+
+        <p id="incomeResult" class="hidden text-center font-bold text-lg text-blue-700 mt-2"></p>
+    </div>
+
+
+    <script>
+        // Variable untuk list yang ditampilkan
+        const occupationType =
+        ["Manajemen Media Sosial",
+        "Email Marketing",
+        "Tugas Administrasi",
+        "Lead Generation",
+        "Pembukuan",
+        "Manajemen Project"];
+
+        const levelExperience =
+        ["Pemula/Tingkat Dasar",
+        "Menengah/Tingkat Madya",
+        "Mahir/Tingkat Lanjut",
+        "Ahli/Spesialis"];
+
+        const typeRate =
+        ["per jam",
+        "per bulan",
+        "per project"];
+
+        // variable yang disembunyikan
+
+        // menggunakan satuan dolar
+        const rateRange = {
+            "Pemula/Tingkat Dasar": {
+                "per jam": [3, 7],
+                "per bulan": [200, 500],
+                "per project": [20, 100]
+            },
+            "Menengah/Tingkat Madya": {
+                "per jam": [7, 15],
+                "per bulan": [500, 1000],
+                "per project": [100, 300]
+            },
+            "Mahir/Tingkat Lanjut": {
+                "per jam": [15, 30],
+                "per bulan": [1000, 2500],
+                "per project": [300, 800]
+            },
+            "Ahli/Spesialis": {
+                "per jam": [30, 100],
+                "per bulan": [2500, 5000],
+                "per project": [500, 5000]
+            }
+        };
+
+        const exchangeRates = {
+            "usd": 1,
+            'idr': 16000,
+            "eur": 0.9
+        };
+
+    </script>
+
+    <script>
+        // Pengambilan data dari setiap elemen
+        const occupations = document.getElementById("occupationType");
+        const Level = document.getElementById("levelExperience");
+        const tRate = document.getElementById("typeRate");
+        const currencySelect = document.getElementById("currency");
+        const rateInput = document.getElementById("rateAmount");
+        const rateSummary = document.getElementById("rateSummary");
+        const totalWorkTimeContainer = document.getElementById("totalWorkTimeContainer");
+        const workUnitSelect = document.getElementById("totalWorkUnit");
+        const durationPerDayContainer = document.getElementById("durationPerDayContainer");
+        const includeHoliday = document.getElementById("includeHolidays");
+        const btnCalculate = document.getElementById("calculate");
+        const incomeResult = document.getElementById("incomeResult");
+
+        console.log("rateInput: ", rateInput.value);
+        console.log("totalwork: ", totalWorkTimeContainer.value);
+        console.log("duration: ", durationPerDayContainer.value);
+        console.log("includeHoliday: ", includeHoliday.value);
+        
+        occupationType.forEach(type => {
+        const option = document.createElement("option");
+        option.textContent = type;
+        occupations.appendChild(option);
+        });
+
+        levelExperience.forEach(type => {
+        const option = document.createElement("option");
+        option.textContent = type;
+        Level.appendChild(option);
+        });
+
+        typeRate.forEach(type => {
+        const option = document.createElement("option");
+        option.textContent = type;
+        tRate.appendChild(option);
+        });
+    </script>
+
+    <script>
+        //function
+        //fungsi updateRateSummary clear (v)
+        function updateRateSummary() {
+            //const job = occupations.value;
+            const level = Level.value;
+            const rateType = tRate.value;
+            const currency = currencySelect.options[currencySelect.selectedIndex].text;
+            const selectedCurrency = currencySelect.value;
+            const rate = parseFloat(rateInput.value);
+            
+            const range = rateRange[level]?.[rateType]; // masih belum ditambahkan dengan tipe pekerjaan
+
+            if (!range) {
+                rateSummary.textContent = "Data tidak lengkap.";
+                rateSummary.className = "text-sm text-gray-500";
+                return;
+            }
+            
+            const [min, max] = range;
+            console.log("selectedCurrency: ", selectedCurrency);
+            const exchangeRate = exchangeRates[selectedCurrency] || 1;
+            const convertedMin = Math.round(min * exchangeRate);
+            const convertedMax = Math.round(max * exchangeRate);
+
+
+            console.log("convertedMin: ", convertedMin);
+            console.log("convertedMax: ", convertedMin);
+            let message = `rentang tarif = ${currency}${convertedMin} - ${currency}${convertedMax}`;
+            console.log("message: ", message);
+
+            let suffix = rateType === "per jam" ? 
+                        "/ jam" : rateType === "per bulan" ?
+                        "/ bulan" : "/ proyek";
+
+            if (!isNaN(rate)) {
+                console.log("baka");
+                console.log('rate: ', rate);
+                if (rate < convertedMin || rate > convertedMax) {
+                message += " | ⚠️ di luar rentang";
+                rateSummary.className = "text-sm text-red-600";
+                } else {
+                message += " | ✅ dalam rentang";
+                rateSummary.className = "text-sm text-green-700";
+                }
+            } else {
+                rateSummary.className = "text-sm text-gray-700";
+            }
+
+            rateSummary.textContent = message;
+            
+            workUnitSelect.innerHTML = ""; // 🔄 reset totalWorkUnit sepenuhnya
+
+            // Per jam → tampilkan semua
+            if (rateType === "per jam") {
+                totalWorkTimeContainer.classList.remove("hidden");
+
+                // Tambahkan 3 opsi: jam, hari, bulan
+                ["Jam", "Hari", "Bulan"].forEach(unit => {
+                const opt = document.createElement("option");
+                opt.value = unit;
+                // masalahnya di sini jika diganti opsinya malah diganti jadi jam langsung
+                opt.textContent = unit.charAt(0) + unit.slice(1);
+                workUnitSelect.appendChild(opt);
+                });
+            }
+            // Per bulan → tampilkan hanya total waktu kerja
+            else if (rateType === "per bulan") {
+                totalWorkTimeContainer.classList.remove("hidden");
+                durationPerDayContainer.classList.add("hidden");
+
+                // Tambahkan hanya opsi: bulan
+                const opt = document.createElement("option");
+                opt.value = "Bulan";
+                opt.textContent = "Bulan";
+                workUnitSelect.appendChild(opt);
+            }
+            // Per project → sembunyikan semua
+            else if (rateType === "per project") {
+                durationPerDayContainer.classList.add("hidden");
+                totalWorkTimeContainer.classList.add("hidden");
+            }
+            // akhir
+        };
+        updateRateSummary();
+        
+        // fungsi updateDetails clear (?)
+        function updateDetails() {
+            const rateType = tRate.value;
+            const unit = workUnitSelect.value;
+
+            const showCheckbox = rateType === "per jam" && unit === "Bulan";
+
+            if (rateType === "per jam") {
+                if (unit !== "Jam") {
+                    durationPerDayContainer.classList.remove("hidden");
+                    if (unit == "Bulan") {
+                        includeHolidaysContainer.classList.remove("hidden");
+                    } else {
+                        includeHolidaysContainer.classList.add("hidden");
+                    }
+                } else {
+                    durationPerDayContainer.classList.add("hidden");
+                    includeHolidaysContainer.classList.add("hidden");
+                }
+            }
+        };
+
+        function resetWorkInputs() {
+            rateInput.value = "";
+            totalWorkTimeContainer.value = "";
+            durationPerDayContainer.value = "";
+            includeHoliday.checked = false;
+        };
+
+        function test() {console.log("value rateInput: ", rateInput.value);}
+
+        function calculateIncome() {
+            const rate = parseFloat(rateInput.value);
+            const rateType = tRate.value;
+            const workUnit = workUnitSelect.value;
+            const totalTime = parseFloat(document.getElementById("totalWorkTime").value) || 0;
+            const durationPerDay = parseFloat(document.getElementById("durationPerDay").value) || 0;
+            const includeHolidays = document.getElementById("includeHolidays")?.checked || false;
+            const currency = currencySelect.options[currencySelect.selectedIndex].text;
+
+            let income = 0;
+
+            if (isNaN(rate) || rate <= 0) {
+                incomeResult.textContent = "⚠️ Tarif tidak valid.";
+                incomeResult.className = "text-center font-semibold text-red-600 mt-2";
+                return;
+            }
+
+            if (rateType === "per project") {
+                income = rate; // proyek → langsung nilai tetap
+            }
+
+            else if (rateType === "per bulan") {
+                income = rate * totalTime; // misal: Rp 3.000.000 x 2 bulan
+            }
+
+            else if (rateType === "per jam") {
+                let totalJam = 0;
+
+                if (workUnit === "Jam") {
+                totalJam = totalTime;
+                } else if (workUnit === "Hari") {
+                const hariKerja = includeHolidays ? totalTime : totalTime * (5 / 7); // kira-kira Senin–Jumat
+                totalJam = hariKerja * durationPerDay;
+                } else if (workUnit === "Bulan") {
+                const hari = includeHolidays ? 30 : 22; // asumsi rata-rata
+                totalJam = totalTime * hari * durationPerDay;
+                }
+
+                income = rate * totalJam;
+            }
+
+            incomeResult.textContent = `Perkiraan Penghasilan: ${currency}${income.toFixed(0).toLocaleString("id-ID")}`;
+            incomeResult.classList.remove("hidden");
+            incomeResult.className = "text-center font-bold text-lg text-blue-700 mt-2";
+        }
+    </script>
+
+    <script>
+        //trigger
+        [occupations, Level, tRate, currencySelect].forEach(al =>
+        al.addEventListener("input", resetWorkInputs));
+        
+        [occupations, Level, tRate, currencySelect, rateInput].forEach(el =>
+        el.addEventListener("input", updateRateSummary));
+
+        rateInput.addEventListener("input", test);
+
+        workUnitSelect.addEventListener("input", updateDetails);
+
+        btnCalculate.addEventListener("click", calculateIncome);
+    </script>
+</body>
+</html>

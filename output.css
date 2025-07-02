@@ -1,0 +1,28 @@
+/*! tailwindcss v4.1.11 | MIT License | https://tailwindcss.com */
+.flex {
+  display: flex;
+}
+.grid {
+  display: grid;
+}
+.h-\[352px\] {
+  height: 352px;
+}
+.items-center {
+  align-items: center;
+}
+.justify-center {
+  justify-content: center;
+}
+.bg-\[url\(\'\.\/learn-mobile\.svg\'\)\] {
+  background-image: url('./learn-mobile.svg');
+}
+.bg-cover {
+  background-size: cover;
+}
+.bg-center {
+  background-position: center;
+}
+.bg-no-repeat {
+  background-repeat: no-repeat;
+}
