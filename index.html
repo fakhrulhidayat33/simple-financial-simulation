@@ -112,12 +112,6 @@
             .then(res => res.json())
             .then(data => {
                 rateRange = data;
-
-                // Now you can safely use rateRange in your functions
-                console.log("rateRange loaded:", rateRange);
-
-                // Optional: Call functions that depend on rateRange
-                updateRateSummary(); // or calculateIncome(), etc.
             })
             .catch(err => console.error("Error loading rateRange:", err));
 
@@ -170,6 +164,7 @@
         //fungsi updateRateSummary clear (v)
         function updateRateSummary() {
             //const job = occupations.value;
+            const occupation = occupationType.value
             const level = Level.value;
             const rateType = tRate.value;
             const currency = currencySelect.options[currencySelect.selectedIndex].text;
