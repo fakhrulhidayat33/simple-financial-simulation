@@ -12,8 +12,8 @@
 
         <div>
             <label for="platformSelect" class="block text-sm font-medium text-gray-700 mt-4">Platform</label>
-            <select id="platformSelect" class="mt-1 p-2 border rounded-md w-full">
-            <!-- opti   ons will be inserted dynamically -->
+            <select id="platformSelect" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                <!-- opti   ons will be inserted dynamically -->
             </select>
         </div>        
         
@@ -218,7 +218,9 @@
             const convertedMin = Math.round(min * exchangeRate);
             const convertedMax = Math.round(max * exchangeRate);
 
-            let message = `rentang tarif = ${currency}${convertedMin} - ${currency}${convertedMax}`;
+            let message = `rentang tarif = `
+            message += `${currency}${convertedMin.toLocaleString("id-ID", { minimumFractionDigits: 0 })} - `
+            message += `${currency}${convertedMax.toLocaleString("id-ID", { minimumFractionDigits: 0 })}`;
 
             let suffix = rateType === "per jam" ? 
                         "/ jam" : rateType === "per bulan" ?
@@ -377,7 +379,7 @@
 
         btnCalculate.addEventListener("click", calculateIncome);
 
-        [occupations, Level, tRate, currencySelect, rateInput, totalWorkTime, workUnitSelect, durationPerDay].forEach(el =>
+        [platformSelect, occupations, Level, tRate, currencySelect, rateInput, totalWorkTime, workUnitSelect, durationPerDay].forEach(el =>
             el.addEventListener("input", () => {incomeResult.textContent = "";}));
         
     </script>
