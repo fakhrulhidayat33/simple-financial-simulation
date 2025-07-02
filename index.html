@@ -105,22 +105,22 @@
         "per project"];
 
         // variable yang disembunyikan
-        console.log("asem 1");
+        
         let rateRange = {};
         let rateRangeReady = false;
-        console.log("asem 2");
+        
 
         fetch('./data/rateRange_USD.json')
             .then(res => res.json())
             .then(data => {
-                console.log("asem 3");
+                
                 rateRange = data;
                 rateRangeReady = true;
                 updateRateSummary();
 
             })
             .catch(err => console.error("Error loading rateRange:", err));
-        console.log("asem 4");
+        
 
         const exchangeRates = {
             "usd": 1,
@@ -164,8 +164,7 @@
             option.textContent = type;
             tRate.appendChild(option);
         });
-
-        console.log("asem 5");
+ 
     </script>
 
     <script>
@@ -179,20 +178,7 @@
             const selectedCurrency = currencySelect.value;
             const rate = parseFloat(rateInput.value);
 
-            console.log("asem 6");
-            
-            console.log("occupation (raw):", occupation);
-            console.log("occupation (trimmed):", occupation.trim());
-            console.log("Available occupations in rateRange:", Object.keys(rateRange));
-
-            //const cleanOccupation = occupation.trim();
-            //const range = rateRange[cleanOccupation]?.[level]?.[rateType];
             const range = rateRange[occupation][level][rateType];
-            console.log(range);
-            console.log("occupation: ", occupation);
-            console.log("level: ", level);
-            console.log("rateType: ", rateType);
-
 
             if (!range) {
                 rateSummary.textContent = "Data tidak lengkap.";
@@ -201,7 +187,7 @@
             }
             
             const [min, max] = range;
-            console.log("selectedCurrency: ", selectedCurrency);
+            
             const exchangeRate = exchangeRates[selectedCurrency] || 1;
             const convertedMin = Math.round(min * exchangeRate);
             const convertedMax = Math.round(max * exchangeRate);
@@ -213,8 +199,8 @@
                         "/ bulan" : "/ proyek";
 
             if (!isNaN(rate)) {
-                console.log("baka");
-                console.log('rate: ', rate);
+                
+                
                 if (rate < convertedMin || rate > convertedMax) {
                 message += " | ⚠️ di luar rentang";
                 rateSummary.className = "text-sm text-red-600";
@@ -331,7 +317,7 @@
                     totalHours = workingDays * duration;
                 }
                 else if (workUnit === "Bulan") {
-                    console.log("includeHoliday: ", includeHoliday.checked);
+                    
                     const daysPerMonth = includeHoliday.checked ? 30 : 22;
                     totalHours = totalTime * daysPerMonth * duration;
                 }
@@ -347,9 +333,6 @@
             incomeResult.className = "text-center font-bold text-lg text-blue-700 mt-2";
         }
 
-        function main(){
-            
-        }
     </script>
 
     <script>
@@ -366,7 +349,7 @@
 
         [occupations, Level, tRate, currencySelect, rateInput, totalWorkTime, workUnitSelect, durationPerDay].forEach(el =>
             el.addEventListener("input", () => {incomeResult.textContent = "";}));
-        console.log("asem 7");
+        
     </script>
 </body>
 </html>
