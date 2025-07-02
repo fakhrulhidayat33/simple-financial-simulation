@@ -157,14 +157,15 @@
             option.textContent = type;
             tRate.appendChild(option);
         });
+
+        console.log("test 1");
     </script>
 
     <script>
         //function
         //fungsi updateRateSummary clear (v)
         function updateRateSummary() {
-            //const job = occupations.value;
-            const occupation = occupationType.value
+            const occupation = occupations.value
             const level = Level.value;
             const rateType = tRate.value;
             const currency = currencySelect.options[currencySelect.selectedIndex].text;
