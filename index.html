@@ -11,6 +11,13 @@
         <h1 class="text-xl font-bold text-center text-gray-800">Simulasi Finansial</h1>
 
         <div>
+            <label for="platformSelect" class="block text-sm font-medium text-gray-700 mt-4">Platform</label>
+            <select id="platformSelect" class="mt-1 p-2 border rounded-md w-full">
+            <!-- opti   ons will be inserted dynamically -->
+            </select>
+        </div>        
+        
+        <div>
             <label for="occupationType" class="block text-sm font-medium text-gray-700 mb-1">Tipe Pekerjaan</label>
             <select id="occupationType" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
                 <!-- opsi akan diisi lewat JavaScript-->
@@ -85,24 +92,33 @@
 
     <script>
         // Variable untuk list yang ditampilkan
-        const occupationType =
-        ["Manajemen Media Sosial",
-        "Email Marketing",
-        "Tugas Administrasi",
-        "Lead Generation",
-        "Pembukuan",
-        "Manajemen Project"];
+        const platformFees = {
+            "Tidak ada": 0,
+            "Fiverr": 0.20,
+            "Upwork": 0.10,
+            "Freelancer": 0.10,
+            "PeoplePerHour": 0.15,
+            "Guru": 0.0895
+        };
+        
+        const occupationType = [
+            "Manajemen Media Sosial",
+            "Email Marketing",
+            "Tugas Administrasi",
+            "Lead Generation",
+            "Pembukuan",
+            "Manajemen Project"];
 
-        const levelExperience =
-        ["Pemula/Tingkat Dasar",
-        "Menengah/Tingkat Madya",
-        "Mahir/Tingkat Lanjut",
-        "Ahli/Spesialis"];
+        const levelExperience = [
+            "Pemula/Tingkat Dasar",
+            "Menengah/Tingkat Madya",
+            "Mahir/Tingkat Lanjut",
+            "Ahli/Spesialis"];
 
-        const typeRate =
-        ["per jam",
-        "per bulan",
-        "per project"];
+        const typeRate = [
+            "per jam",
+            "per bulan",
+            "per project"];
 
         // variable yang disembunyikan
         
@@ -133,6 +149,8 @@
 
     <script>
         // Pengambilan data dari setiap elemen
+        
+        const platformSelect = document.getElementById("platformSelect");
         const occupations = document.getElementById("occupationType");
         const Level = document.getElementById("levelExperience");
         const tRate = document.getElementById("typeRate");
@@ -148,6 +166,13 @@
         const btnCalculate = document.getElementById("calculate");
         const incomeResult = document.getElementById("incomeResult");
         
+        Object.entries(platformFees).forEach(([name, fee]) => {
+            const option = document.createElement("option");
+            option.textContent = name;   // Label
+            option.value = fee;          // Hidden % value
+            platformSelect.appendChild(option);
+        });
+
         occupationType.forEach(type => {
             const option = document.createElement("option");
             option.textContent = type;
@@ -282,12 +307,13 @@
 
         function calculateIncome() {
             // Get rate safely (support formatted text if needed)
+            const platformFee = parseFloat(platformSelect.value);
             const rate = parseFloat(rateInput.value);
             const rateType = tRate.value;
             const currency = currencySelect.options[currencySelect.selectedIndex].text;
             const workUnit = workUnitSelect.value;
-            const totalTime = parseFloat(totalWorkTime.value) || 0;
-            const duration = parseFloat(durationPerDay.value) || 0;
+            const totalTime = parseFloat(totalWorkTime.value);
+            const duration = parseFloat(durationPerDay.value);
 
             let income = 0;
 
@@ -326,6 +352,8 @@
 
                 income = rate * totalHours;
             }
+
+            income = income * (1 - platformFee);
 
             // Format final income
             const formatted = income.toLocaleString("id-ID", { minimumFractionDigits: 0 });
