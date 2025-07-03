@@ -166,7 +166,6 @@
         
         let rateRange = {};
         let rateRangeReady = false;
-        
 
         fetch('../data/rateRange_USD.json')
             .then(res => res.json())
@@ -186,8 +185,7 @@
             'idr': 16000,
             "eur": 0.9
         };
-        console.log("test 1");
-
+        
     </script>
 
     <script>
@@ -291,7 +289,7 @@
             
             workUnitSelect.innerHTML = ""; // 🔄 reset totalWorkUnit sepenuhnya
 
-            console.log("rateType: ", rateType);
+            
 
             // Per jam → tampilkan semua
             if (rateType === "per jam") {
@@ -335,8 +333,8 @@
 
             const showCheckbox = rateType === "per jam" && unit === "Bulan";
 
-            console.log("rateType: ", rateType);
-            console.log("unit: ", unit);
+            
+            
 
             if (rateType === "per jam") {
                 if (unit !== "Jam") {
@@ -362,7 +360,7 @@
             incomeResult.textContent = ``;
             includeHoliday.checked = false;
         };
-        console.log("test 3");
+        
 
         function calculateIncome() {
             // Get rate safely (support formatted text if needed)
@@ -452,16 +450,15 @@
         });
 
         idButton.addEventListener("click", () => {
-            console.log("masukkah?")
             window.open(`https://sgbvacourse.com/${lang}`, "_blank");
-            console.log("iyo masuk nah bagaimana linknya?");}
+            
         );
     </script>
     <script>
         document.getElementById('languageSelector').addEventListener('change', function () {
             const lang = this.value;
             if (lang === 'en') {
-            window.location.href = '/'; // root = default = English
+            window.location.origin;
             } else if (lang === 'id') {
             window.location.href = '/id/';
             }

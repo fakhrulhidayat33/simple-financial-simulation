@@ -449,6 +449,7 @@
     <script>
         document.getElementById('languageSelector').addEventListener('change', function () {
             const lang = this.value;
+            console.log(window.location.origin);
             if (lang === 'en') {
             window.location.href = '/'; // root = default = English
             } else if (lang === 'id') {
