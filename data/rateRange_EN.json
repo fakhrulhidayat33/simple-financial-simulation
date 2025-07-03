@@ -1,0 +1,350 @@
+{
+  "Social Media Management": {
+    "Beginner/Entry Level": {
+      "per hour": [
+        10,
+        15
+      ],
+      "per month": [
+        800,
+        1200
+      ],
+      "per project": [
+        300,
+        600
+      ]
+    },
+    "Intermediate/Junior": {
+      "per hour": [
+        15,
+        25
+      ],
+      "per month": [
+        1200,
+        1800
+      ],
+      "per project": [
+        600,
+        1200
+      ]
+    },
+    "Advanced/Senior": {
+      "per hour": [
+        25,
+        35
+      ],
+      "per month": [
+        1800,
+        2500
+      ],
+      "per project": [
+        1200,
+        2000
+      ]
+    },
+    "Expert/Specialist": {
+      "per hour": [
+        35,
+        50
+      ],
+      "per month": [
+        2500,
+        4000
+      ],
+      "per project": [
+        2000,
+        3500
+      ]
+    }
+  },
+  "Email Marketing": {
+    "Beginner/Entry Level": {
+      "per hour": [
+        12,
+        18
+      ],
+      "per month": [
+        900,
+        1300
+      ],
+      "per project": [
+        350,
+        700
+      ]
+    },
+    "Intermediate/Junior": {
+      "per hour": [
+        18,
+        28
+      ],
+      "per month": [
+        1300,
+        1900
+      ],
+      "per project": [
+        700,
+        1300
+      ]
+    },
+    "Advanced/Senior": {
+      "per hour": [
+        28,
+        40
+      ],
+      "per month": [
+        1900,
+        2700
+      ],
+      "per project": [
+        1300,
+        2200
+      ]
+    },
+    "Expert/Specialist": {
+      "per hour": [
+        40,
+        60
+      ],
+      "per month": [
+        2700,
+        4500
+      ],
+      "per project": [
+        2200,
+        4000
+      ]
+    }
+  },
+  "Admin Tasks": {
+    "Beginner/Entry Level": {
+      "per hour": [
+        8,
+        12
+      ],
+      "per month": [
+        600,
+        900
+      ],
+      "per project": [
+        200,
+        500
+      ]
+    },
+    "Intermediate/Junior": {
+      "per hour": [
+        12,
+        18
+      ],
+      "per month": [
+        900,
+        1300
+      ],
+      "per project": [
+        500,
+        900
+      ]
+    },
+    "Advanced/Senior": {
+      "per hour": [
+        18,
+        25
+      ],
+      "per month": [
+        1300,
+        1800
+      ],
+      "per project": [
+        900,
+        1400
+      ]
+    },
+    "Expert/Specialist": {
+      "per hour": [
+        25,
+        35
+      ],
+      "per month": [
+        1800,
+        2600
+      ],
+      "per project": [
+        1400,
+        2200
+      ]
+    }
+  },
+  "Lead Generation": {
+    "Beginner/Entry Level": {
+      "per hour": [
+        10,
+        15
+      ],
+      "per month": [
+        800,
+        1200
+      ],
+      "per project": [
+        300,
+        600
+      ]
+    },
+    "Intermediate/Junior": {
+      "per hour": [
+        15,
+        22
+      ],
+      "per month": [
+        1200,
+        1700
+      ],
+      "per project": [
+        600,
+        1100
+      ]
+    },
+    "Advanced/Senior": {
+      "per hour": [
+        22,
+        30
+      ],
+      "per month": [
+        1700,
+        2300
+      ],
+      "per project": [
+        1100,
+        1800
+      ]
+    },
+    "Expert/Specialist": {
+      "per hour": [
+        30,
+        45
+      ],
+      "per month": [
+        2300,
+        3500
+      ],
+      "per project": [
+        1800,
+        3200
+      ]
+    }
+  },
+  "Bookkeeping": {
+    "Beginner/Entry Level": {
+      "per hour": [
+        10,
+        15
+      ],
+      "per month": [
+        800,
+        1200
+      ],
+      "per project": [
+        400,
+        700
+      ]
+    },
+    "Intermediate/Junior": {
+      "per hour": [
+        15,
+        22
+      ],
+      "per month": [
+        1200,
+        1700
+      ],
+      "per project": [
+        700,
+        1200
+      ]
+    },
+    "Advanced/Senior": {
+      "per hour": [
+        22,
+        30
+      ],
+      "per month": [
+        1700,
+        2300
+      ],
+      "per project": [
+        1200,
+        2000
+      ]
+    },
+    "Expert/Specialist": {
+      "per hour": [
+        30,
+        45
+      ],
+      "per month": [
+        2300,
+        3500
+      ],
+      "per project": [
+        2000,
+        3500
+      ]
+    }
+  },
+  "Project Management": {
+    "Beginner/Entry Level": {
+      "per hour": [
+        12,
+        18
+      ],
+      "per month": [
+        1000,
+        1500
+      ],
+      "per project": [
+        500,
+        900
+      ]
+    },
+    "Intermediate/Junior": {
+      "per hour": [
+        18,
+        28
+      ],
+      "per month": [
+        1500,
+        2200
+      ],
+      "per project": [
+        900,
+        1600
+      ]
+    },
+    "Advanced/Senior": {
+      "per hour": [
+        28,
+        40
+      ],
+      "per month": [
+        2200,
+        3200
+      ],
+      "per project": [
+        1600,
+        2600
+      ]
+    },
+    "Expert/Specialist": {
+      "per hour": [
+        40,
+        60
+      ],
+      "per month": [
+        3200,
+        5000
+      ],
+      "per project": [
+        2600,
+        4500
+      ]
+    }
+  }
+}
