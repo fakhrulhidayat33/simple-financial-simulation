@@ -460,11 +460,7 @@
     <script>
         document.getElementById('languageSelector').addEventListener('change', function () {
             const lang = this.value;
-            if (lang === 'en') {
-            window.location.href = '/simple-financial-simulation/'; // root = default = English
-            } else if (lang === 'id') {
-            window.location.href = 'simple-financial-simulation/id/';
-            }
+            window.location.href = 'simple-financial-simulation/';
         });
 
         // Optional: set dropdown to match current language
